@@ -122,6 +122,46 @@ docker logs -f <container-id>
 
 ## [PART 7 : Multi-container apps](https://docs.docker.com/get-started/07_multi_container/)
 
+- 컨테이너는 한 가지 작업을 수행하고 집중해야 한다.
+- 컨테이너는 격리되어 있기 때문에 같은 시스템의 다른 프로세스나 컨테이너에 대해 알 수 없다. 하지만 동일한 네트워크에서 동작하고 있다면 서로 통신할 수 있다.
+
+```sh
+docker network create todo-app
+```
+
+- `network`를 사용하여 네트워크를 생성한다.
+
+```sh
+docker run -d \
+    --network todo-app --network-alias mysql \
+    -v todo-mysql-data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=secret \
+    -e MYSQL_DATABASE=todos \
+    mysql:5.7
+```
+
+- `network`를 통해 `MySQL`에 네트워크를 연결해준다.
+  - `network-alias`를 통해 플래그를 지정할 수 있다.
+- `v`를 통해 명명된 볼륨을 사용한다.
+  - `docker volume create` 명령을 사용하지 않았음에도 위와 같이 입력하면 `Docker`에서 자동으로 볼륨을 만들어준다.
+- `MySQL`에 필요한 환경변수를 설정한다.
+
+```sh
+docker run -it --network todo-app nicolaka/netshoot
+dig mysql
+```
+
+- 네트워킹 문제를 해결하거나 디버깅하는데 좋은 라이브러리를 사용한다.
+- `dig mysql`을 사용하여 내용을 확인한다.
+
+```sh
+...
+;; ANSWER SECTION:
+mysql.                  600     IN      A       172.18.0.2
+```
+
+- `--network-alias`로 작성한 `mysql`이라는 레코드가 표시되며 `IP`가 표시된다.
+
 ## [PART 8 : Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/)
 
 ## [PART 9 : Image-building best practices](https://docs.docker.com/get-started/09_image_best/)
