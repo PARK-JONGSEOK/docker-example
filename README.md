@@ -25,7 +25,7 @@ docker ps
 
 - `docker ps`를 사용하여 실행중인 컨테이너 아이디를 얻을 수 있다.
 
-````sh
+```sh
 Swap out <the-container-id> with the ID from docker ps
 docker stop <the-container-id>
 ```
@@ -35,6 +35,7 @@ docker stop <the-container-id>
 ```sh
 docker rm <the-container-id>
 ```
+
 - `docker rm`을 사용하여 컨테이너를 제거할 수 있다.
   `f` : `force` 플래그를 추가하여 컨테이너를 중지하고 제거할 수 있다.
 
@@ -45,5 +46,16 @@ docker rm <the-container-id>
 
 ## [PART 3 : Update the application](https://docs.docker.com/get-started/03_updating_app/)
 
--
-````
+## [PART 4 : Share the application](https://docs.docker.com/get-started/04_sharing_app/)
+
+## [PART 5 : Persist the DB](https://docs.docker.com/get-started/05_persisting_data/)
+
+## [PART 6 : Ues bind mounts](https://docs.docker.com/get-started/06_bind_mounts/)
+
+## [PART 7 : Multi-container apps](https://docs.docker.com/get-started/07_multi_container/)
+
+## [PART 8 : Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/)
+
+## [PART 9 : Image-building best practices](https://docs.docker.com/get-started/09_image_best/)
+
+## [PART 10 : What next?](https://docs.docker.com/get-started/11_what_next/)
