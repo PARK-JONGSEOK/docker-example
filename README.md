@@ -48,6 +48,30 @@ docker rm <the-container-id>
 
 ## [PART 4 : Share the application](https://docs.docker.com/get-started/04_sharing_app/)
 
+```sh
+docker push pjongsuk1/getting-started
+```
+
+- `Docker Hub`에 푸시한다.
+
+```sh
+docker image ls
+```
+
+- 가지고 있는 도커 이미지의 리스트를 보여준다.
+
+```sh
+docker login -u USERNAME\
+```
+
+- `docker`에 로그인한다.
+
+```sh
+ docker tag getting-started YOUR-USER-NAME/getting-started
+```
+
+- `docker tag` 명령을 사용하여 `getting-started`에 새 이름을 지정한다.
+
 ## [PART 5 : Persist the DB](https://docs.docker.com/get-started/05_persisting_data/)
 
 ## [PART 6 : Ues bind mounts](https://docs.docker.com/get-started/06_bind_mounts/)
