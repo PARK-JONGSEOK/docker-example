@@ -95,7 +95,30 @@ docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
 
 - `v`를 통해 볼륨을 지정할 수 있다.
 
-## [PART 6 : Ues bind mounts](https://docs.docker.com/get-started/06_bind_mounts/)
+## [PART 6 : Use bind mounts](https://docs.docker.com/get-started/06_bind_mounts/)
+
+- `PART 5`에서 사용한 볼륨은 이름있는 볼륨이다.
+  - 명명된 볼륨은 데이터가 저장되는 위치에 대해 걱정할 필요가 없기 때문에 단순히 데이터를 저장하려는 경우에 좋다.
+- 바인드 마운트를 사용하면 어디에서 저장할지 정확한 마운트 지점을 정할 수 있다. 명명된 볼륨과 마찬가지로 데이터를 저장할 수 있다.
+- 또한 컨테이너에 추가 데이터를 제공할 때 자주 사용되는데, 애플리케이션에서 작업할 때 바인드 마운트를 사용하여 소스 코드를 컨테이너에 마운트하여 코드 변경 사항을 확인할 수 있다.
+
+```sh
+docker run -dp 3000:3000 \
+    -w /app -v "$(pwd):/app" \
+    node:12-alpine \
+    sh -c "yarn install && yarn run dev"
+```
+
+- `-d 3000:3000` : 백그라운드 모드로 호스트 `3000` 포트와 도커 `3000`포트를 연결시킨다.
+- `-w /app` : 작업 디렉터리 또는 명령이 실행될 디렉터리를 설정한다.
+- `-v "${pwd}:/app"` : 컨테이너의 최근 디렉터리를 `/app` 디렉터리로 바인드 마운트 한다.
+- `node:12-alpine` : `Docker`에서 사용하는 이미지
+
+```sh
+docker logs -f <container-id>
+```
+
+- `docker logs`를 통해 로그를 확인할 수 있다.
 
 ## [PART 7 : Multi-container apps](https://docs.docker.com/get-started/07_multi_container/)
 
