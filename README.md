@@ -225,4 +225,51 @@ docker compose down
 
 ## [PART 9 : Image-building best practices](https://docs.docker.com/get-started/09_image_best/)
 
+```sh
+docker scan --login
+docker scan getting-started
+```
+
+- `scan`을 사용하여 `snyk`와 제흎된 취약점 스캐닝 서비스를 사용할 수 있다.
+
+```sh
+docker image history getting-started
+```
+
+- `image history`를 사용하여 이미지의 이력을 확인할 수 있다.
+  - 위쪽에 위치할수록 최신 레이어이다.
+
+```docker
+# syntax=docker/dockerfile:1
+FROM node:12-alpine
+RUN apk add --no-cache python2 g++ make
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+```
+
+- 위의 도커 파일의 경우 매번 빌드될 때 `yarn`을 실행한다.
+  - 동일한 종속성일 때는 빌드를 해도 동일하기 때문에 캐싱을 할 수 있다.
+  - 노드 기반의 애플리케이션의 종속성은 `package.json`에 제공된다. 따라서 아래와 같이 작성할 수 있다.
+
+```docker
+# syntax=docker/dockerfile:1
+FROM node:12-alpine
+RUN apk add --no-cache python2 g++ make
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --production
+COPY . .
+CMD ["node", "src/index.js"]
+```
+
+```dockerignore
+node_modules
+```
+
+- `.dockerignore`을 생성하여 `node_modules`를 제외한다.
+- `package.json`과 `yarn.lock`을 먼저 복사하고 종속성을 설치하고, 나머지를 모두 복사한다.
+
 ## [PART 10 : What next?](https://docs.docker.com/get-started/11_what_next/)
