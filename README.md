@@ -164,6 +164,65 @@ mysql.                  600     IN      A       172.18.0.2
 
 ## [PART 8 : Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/)
 
+- `Docker Compose`를 사용하여 다중 컨테이너 애플리케이션을 정의할 수 있다.
+
+```yml
+version: "3.7"
+
+services:
+  app:
+    image: node:12-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+
+volumes:
+  todo-mysql-data:
+```
+
+- `docker-compose.yml`을 위와 같이 작성하고 아래의 명령어를 사용하여 실행한다.
+
+```sh
+docker compose up -d
+```
+
+- 백그라운드에서 작성한 `docker-compose`를 실행한다.
+
+```sh
+docker compose logs -f
+```
+
+- 실행된 `docker-compose`의 로그를 확인할 수 있다.
+
+```sh
+docker compose logs -f app
+```
+
+- 특정 서비스에 대한 로그는 서비스의 이름을 넣어 확인할 수 있다.
+
+```sh
+docker compose down
+```
+
+- 전체 앱에 대해 컨테이너를 중지시키고 네트워크를 중지시킨다.
+  - 다만 `volume`은 그대로 존재한다. `volume`을 삭제하고 싶다면 `--volume`을 통해 삭제해야 한다.
+
 ## [PART 9 : Image-building best practices](https://docs.docker.com/get-started/09_image_best/)
 
 ## [PART 10 : What next?](https://docs.docker.com/get-started/11_what_next/)
