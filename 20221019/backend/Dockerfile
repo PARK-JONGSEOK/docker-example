@@ -1,0 +1,7 @@
+FROM node:16-alpine
+WORKDIR /tamastudy
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3001
+CMD ["node", "index.js"]
