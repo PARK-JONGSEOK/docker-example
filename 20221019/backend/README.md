@@ -25,7 +25,7 @@ CMD ["node", "index.j"]
 - `COPY` : `COPY <src>... <dest>` 형식으로 작성되며 `src`에서 새 파일 또는 디렉터리를 복사하여 `dest`에 있는 컨테이너의 파일 시스템에 추가한다.
   - `src`는 와일드카드를 포함할 수 있다.
   - 위의 파일을 보면 전체 파일을 `COPY` 하기전에 `package*.json`을 한 뒤, 의존성을 전부 설치한 후 다시 `COPY`한다. 따라서 `package.json`과 `package-lock.json`을 통해 의존성을 보장하고 이후 전체파일을 복사한다.
-    - 참고로 `.dockerIgnore`에
+    - 참고로 `.dockerIgnore`에 `node_modules`를 지정하였기 때문에 `node_modules`는 복사하지 않는다.
 - `EXPOSE` : `EXPOSE`는 컨테이너가 런타임에 지정된 네트워크 포트에서 수신하도록 한다. `TCP`, `UDP`를 지정할 수 있으며 지정하지 않은 경우 `TCP`로 지정된다
   - 이 때 지정되는 포트는 빌드하는 사용자와 컨테이너를 실행하는 사용자 간에 게시할 포트이다.
   ```dockerfile
