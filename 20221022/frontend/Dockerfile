@@ -1,5 +1,5 @@
 FROM node:16-alpine as build
-WORKDIR /tamastudy
+WORKDIR /tamastudy/frontend
 
 COPY package*.json ./
 RUN npm ci

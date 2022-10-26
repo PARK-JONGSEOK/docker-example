@@ -1,5 +1,5 @@
 FROM node:16-alpine
-WORKDIR /tamastudy
+WORKDIR /tamastudy/backend
 COPY package*.json ./
 RUN npm install
 COPY . .

@@ -1,7 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+async function fetchAPI() {
+  const response = await axios.get("http://localhost:3001");
+  return response.data;
+}
 
 function App() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetchAPI().then((data) => setData(data));
+  }, []);
+  console.log(data);
   return (
     <div className="App">
       <header className="App-header">

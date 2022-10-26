@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    networks:
+      - tamanetwork
+    volumes:
+      - ./backend:/tamastudy/backend
+      - /tamastudy/backend/node_modules
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    networks:
+      - tamanetwork
+    volumes:
+      - ./frontend:/tamastudy/frontend
+      - /tamastudy/frontend/node_modules
+    depends_on:
+      - backend
+networks:
+  tamanetwork:
+    driver: bridge
