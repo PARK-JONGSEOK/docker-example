@@ -53,3 +53,9 @@ docker run -p 3000:3001 tamastudy/backend:0.1
 ```
 
 - [http://localhost:3000/](http://localhost:3000/)에 접속하면 `Hello World!`를 확인할 수 있다.
+
+## CORS
+
+```sh
+npm i cors
+```
